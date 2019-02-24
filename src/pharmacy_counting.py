@@ -7,7 +7,15 @@ Created on Fri Feb 22 21:13:57 2019
 import sys, re
 
 '''Define helper functions'''
+def float_or_int(x):
+    # A function to remove unnecessary floating point
+    if (float(x) == int(x)):
+        return int(x)
+    else:
+        return float(x)
+
 def isfloat(x):
+    # A function that checks if a string can be converted to a float
     try: 
         float(x)
         return True
@@ -96,7 +104,8 @@ outfile.write(outheader)
 while(len(drug_set)):
     drug = drug_set.pop() # pop a drug
     idx = drug_dict[drug] # retrieve drug index in data structures
-    total_cost = str(sum(costs_lists[idx])) # compute total cost for the drug
+    # compute total cost for the drug
+    total_cost = str(float_or_int(sum(costs_lists[idx])))
     num_prescriber = str(len(prset_list[idx])) # compute number of unique prescribers
     # Create a line string and write
     line = drug + ',' + num_prescriber + ',' + total_cost + '\n'
