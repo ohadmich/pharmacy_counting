@@ -66,7 +66,7 @@ header[-1] = header[-1].rstrip() # Remove EOL trailing
 drug_set = set([]) # Create a set of drugs in our file
 drug_dict = {} # a dictionary for keeping track of drug locations
 prset_list = [] # a list of prescribers name sets, one for each drug
-costs_lists = [] # a list of cost lists for each drug
+costs_list = [] # a list of total costs for each drug
 idx = 0 # an index for keeping track of drug order
 
 '''Read and analyze lines'''
@@ -75,8 +75,8 @@ for line in file:
     drug, fullname, cost = splitcol(line, header)
     # If this drug is not in the set
     if drug not in drug_set:
-        # Create a new price list and appent it to costs_lists
-        costs_lists.append([cost])
+        # Append a new cost element to costs_list
+        costs_list.append(cost)
         # Create a new prescribers set and append tp prset_list
         prset_list.append(set([fullname]))
         # Save index of the drug into drug_dict and increase idx
@@ -85,10 +85,10 @@ for line in file:
         # Add drug to set
         drug_set.add(drug)
         
-    # Drug already exist, append to existing list
+    # Drug already exist, append to corresponding drug index in the lists
     else:
-        # Append cost to the costs sublist of the current drug 
-        costs_lists[drug_dict[drug]].append(cost)
+        # Add cost to sum of cost element of the current drug 
+        costs_list[drug_dict[drug]] += cost
         # Add prescriber name to the set of prescibers of the current drug
         prset_list[drug_dict[drug]].add(fullname)
 
@@ -104,8 +104,8 @@ outfile.write(outheader)
 while(len(drug_set)):
     drug = drug_set.pop() # pop a drug
     idx = drug_dict[drug] # retrieve drug index in data structures
-    # compute total cost for the drug
-    total_cost = str(float_or_int(sum(costs_lists[idx])))
+    # Create a string of total cost for the drug
+    total_cost = str(float_or_int(costs_list[idx]))
     num_prescriber = str(len(prset_list[idx])) # compute number of unique prescribers
     # Create a line string and write
     line = drug + ',' + num_prescriber + ',' + total_cost + '\n'
