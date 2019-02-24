@@ -57,7 +57,7 @@ def splitcol(line, header):
 
 '''Open file'''
 in_path = sys.argv[1] # Input file path
-out_path = sys.argv[2] # Output file path
+out_path = sys.argv[2].rstrip() # Output file path
 file = open(in_path, 'r') # Open file for reading
 
 '''Define data structures'''
