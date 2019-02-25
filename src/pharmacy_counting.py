@@ -22,8 +22,8 @@ def isfloat(x):
     except:
         return False
         
-def splitcol(line, header):
-    ''' Cleans and splits lines into columns
+def extract_values(line, header):
+    ''' Cleans extracts the needed values out of a line
         inputs: line - a string of data; header - a string of column names
         outputs: drug - name of drug string
                  fullname - perscriber fullname string 
@@ -72,7 +72,7 @@ idx = 0 # an index for keeping track of drug order
 '''Read and analyze lines'''
 for line in file:
     
-    drug, fullname, cost = splitcol(line, header)
+    drug, fullname, cost = extract_values(line, header)
     # If this drug is not in the set
     if drug not in drug_set:
         # Append a new cost element to costs_list
