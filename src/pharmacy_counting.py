@@ -23,7 +23,7 @@ def isfloat(x):
         return False
         
 def extract_values(line, header):
-    ''' Cleans extracts the needed values out of a line
+    ''' Extracts and cleans the needed values in a line
         inputs: line - a string of data; header - a string of column names
         outputs: drug - name of drug string
                  fullname - perscriber fullname string 
@@ -55,6 +55,8 @@ def extract_values(line, header):
     
     return drug, fullname, cost
 
+'''MAIN FUNCTION'''
+
 '''Open file'''
 in_path = sys.argv[1] # Input file path
 out_path = sys.argv[2].rstrip() # Output file path
@@ -71,13 +73,13 @@ idx = 0 # an index for keeping track of drug order
 
 '''Read and analyze lines'''
 for line in file:
-    
+    # Extract important values from line
     drug, fullname, cost = extract_values(line, header)
     # If this drug is not in the set
     if drug not in drug_set:
         # Append a new cost element to costs_list
         costs_list.append(cost)
-        # Create a new prescribers set and append tp prset_list
+        # Create a new prescribers set and append to prset_list
         prset_list.append(set([fullname]))
         # Save index of the drug into drug_dict and increase idx
         drug_dict[drug] = idx
@@ -85,7 +87,7 @@ for line in file:
         # Add drug to set
         drug_set.add(drug)
         
-    # Drug already exist, append to corresponding drug index in the lists
+    # Drug already in the set, append to the corresponding drug index in lists
     else:
         # Add cost to sum of cost element of the current drug 
         costs_list[drug_dict[drug]] += cost
