@@ -7,6 +7,6 @@ First, each data line is input to my `extract_values` function which extracts th
 Next, the drag is added to a set of drugs, the full name is added to a corresponding set of names in a list of sets (one for every drug) and the cost is added to a list of total costs. A dictionary keeps track of the mapping between a drug name and its corresponding index in the two lists.
 Finally, the drug set is sorted and the results are written line by line into a file.
 
-This solution can take any size of data, it was tested and performed well on 24 milion records (a 1.15GB text file)
+This solution can take any size of data, it was tested and performed well on 24 milion records (a 1.15GB text file).
 ### Running instuctions
 Name input file `itcont.txt`, put it in the input folder, run the shell script `run.sh` and find results in the output folder.
